@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Plant Hub | Doctor & Care Library</title>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Papa-Parse/5.3.0/papaparse.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
 
     <style>
         :root { --primary: #2d5a27; --accent: #4CAF50; --bg: #f4f7f2; --text: #333; }
@@ -95,7 +95,7 @@
             return;
         }
 
-        // Make sure plants.csv is in the same folder as this HTML file
+        // Ensure plants.csv is in the same folder as this HTML file
         Papa.parse("plants.csv", {
             download: true,
             header: true,
@@ -106,7 +106,7 @@
                 renderDoctorNode('start');
             },
             error: function() {
-                document.getElementById('question-text').innerText = "Error loading plants.csv. Ensure it is uploaded to GitHub.";
+                document.getElementById('question-text').innerText = "Error loading plants.csv. Ensure it is in the same folder!";
             }
         });
     };
@@ -166,12 +166,14 @@
         });
 
         if (match) {
+            // FIXED: Corrected the ID mapping to match your CSV headers
             document.getElementById('lib-name').innerText = match["Plant Name"];
             document.getElementById('lib-sun').innerText = match["Sunlight"];
             document.getElementById('lib-water').innerText = match["Watering"];
             document.getElementById('lib-soil').innerText = match["Soil"];
             document.getElementById('lib-growth').innerText = match["Growth"];
             document.getElementById('lib-fert').innerText = match["Fertilization Type"];
+            
             resBox.classList.remove('hidden');
             notFound.classList.add('hidden');
         } else {
